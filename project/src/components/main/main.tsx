@@ -1,4 +1,5 @@
 import Card from '../card/card';
+import Logo from '../logo/logo';
 
 type CardsAmount = {
   cardsAmount: number[]
@@ -11,9 +12,7 @@ function Main({cardsAmount}: CardsAmount): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <Logo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -21,12 +20,11 @@ function Main({cardsAmount}: CardsAmount): JSX.Element {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
+                  <a className="header__nav-link" href="/login">
+                    <span className="header__signout">Sign in</span>
                   </a>
                 </li>
               </ul>
@@ -91,10 +89,6 @@ function Main({cardsAmount}: CardsAmount): JSX.Element {
                   <li className="places__option" >Price: low to high</li>
                   <li className="places__option" >Price: high to low</li>
                   <li className="places__option" >Top rated first</li>
-                  {/* <li class="places__option places__option--active" tabindex="0">Popular</li>
-                  <li class="places__option" tabindex="0">Price: low to high</li>
-                  <li class="places__option" tabindex="0">Price: high to low</li>
-                  <li class="places__option" tabindex="0">Top rated first</li> */}
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
