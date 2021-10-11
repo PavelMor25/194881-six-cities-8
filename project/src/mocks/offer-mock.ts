@@ -1,0 +1,125 @@
+import { Offer } from '../types/offer';
+import { users } from './users';
+
+export const offers: Offer[] = [
+  {
+    id: 1,
+    type: 'apartment',
+    price: 120,
+    title: 'So good and tasty',
+    photos: [
+      '../../public/img/apartment-01.jpg',
+      '../../public/img/apartment-01.jpg',
+      '../../public/img/apartment-01.jpg',
+    ],
+    goods: ['Wi-Fi', 'Kitchen', 'Cabel TV'],
+    rating: 4,
+    isPremium: true,
+    rooms: 4,
+    maxAdults: 6,
+    owner: users[0],
+    reviews: [
+      {
+        author: users[1],
+        comment: 'sadsad sdaasd asdasw asdasdsa ffsdfsdf asd',
+        date: new Date(),
+        rating: 4,
+      },
+      {
+        author: users[1],
+        comment: 'sadsddasdasdgsdf ffsdfsdf asd',
+        date: new Date(),
+        rating: 4,
+      },
+    ],
+  },
+  {
+    id: 2,
+    type: 'apartment',
+    price: 150,
+    title: 'asdasd ASd asdas sadsa',
+    photos: [
+      '../../public/img/apartment-02.jpg',
+      '../../public/img/apartment-01.jpg',
+      '../../public/img/apartment-03.jpg',
+    ],
+    goods: ['Wi-Fi', 'Kitchen', 'Towel'],
+    rating: 3.5,
+    isPremium: false,
+    rooms: 2,
+    maxAdults: 4,
+    owner: users[1],
+    reviews: [
+      {
+        author: users[0],
+        comment: 'sadsad sdaasd asdasw asdasdsa ffsdfsdf asd',
+        date: new Date(),
+        rating: 4,
+      },
+      {
+        author: users[0],
+        comment: 'sadsddasdasdgsdf ffsdfsdf asd',
+        date: new Date(),
+        rating: 3,
+      },
+    ],
+  },
+  {
+    id: 1,
+    type: 'apartment',
+    price: 120,
+    title: 'So good and tasty',
+    photos: [
+      '../../public/img/apartment-03.jpg',
+      '../../public/img/apartment-01.jpg',
+      '../../public/img/apartment-01.jpg',
+    ],
+    goods: ['Wi-Fi', 'Kitchen', 'Cabel TV', 'Wi-Fi', 'Kitchen', 'Cabel TV'],
+    rating: 5,
+    isPremium: true,
+    rooms: 4,
+    maxAdults: 6,
+    owner: users[0],
+    reviews: [
+      {
+        author: users[1],
+        comment: 'sadsad sdaasd asdasw asdasdsa ffsdfsdf asd',
+        date: new Date(),
+        rating: 5,
+      },
+    ],
+  },
+  {
+    id: 1,
+    type: 'apartment',
+    price: 120,
+    title: 'So good and tasty',
+    photos: [
+      '../../public/img/apartment-01.jpg',
+      '../../public/img/apartment-02.jpg',
+      '../../public/img/apartment-03.jpg',
+      '../../public/img/apartment-03.jpg',
+      '../../public/img/apartment-03.jpg',
+    ],
+    goods: [],
+    rating: 2.5,
+    isPremium: false,
+    rooms: 4,
+    maxAdults: 6,
+    owner: users[0],
+    reviews: [
+      {
+        author: users[1],
+        comment: 'sadsad sdaasd asdasw asdasdsa ffsdfsdf asd',
+        date: new Date(),
+        rating: 4,
+      },
+      {
+        author: users[1],
+        comment: 'sadsddasdasdgsdf ffsdfsdf asd',
+        date: new Date(),
+        rating: 2,
+      },
+    ],
+  },
+];
