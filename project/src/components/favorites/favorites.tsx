@@ -1,10 +1,11 @@
 import Header from '../headers/header';
-import FavoritesCityGroup from '../favorites-city-group/favorites-city-group';
+import FavoritesItem from '../favorite-item/favorite-item';
 import { Offer } from '../../types/offer';
+import { uniqCity } from '../utils/utils';
 
 function Favorites(props: {offers: Offer[]}): JSX.Element {
   const {offers} = props;
-  const favoritesOffer = offers.filter((item) => item.isFavorite);
+  const citesGroup = uniqCity(offers);
   return (
     <div className="page">
       <Header />
@@ -13,13 +14,13 @@ function Favorites(props: {offers: Offer[]}): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <FavoritesCityGroup offers={favoritesOffer} />
+              {citesGroup.map((city) => <FavoritesItem key={city} offers={offers.filter((item) => city === item.city)} name={city} />)}
             </ul>
           </section>
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <a className="footer__logo-link" href="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </a>
       </footer>

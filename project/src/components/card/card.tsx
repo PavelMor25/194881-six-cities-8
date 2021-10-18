@@ -1,11 +1,11 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Offer} from '../../types/offer';
 
 
-function Card(props: {offer: Offer}): JSX.Element {
-  const {offer: {price, title, type, photos, isPremium, id, rating, isFavorite}} = props;
-  const [offerId, setOfferId] = useState(-1);
+function Card(props: {offer: Offer, setOfferId: React.Dispatch<React.SetStateAction<number>>}): JSX.Element {
+  const {offer: {price, title, type, photos, isPremium, id, rating, isFavorite}, setOfferId} = props;
+  // const [offerId, setOfferId] = useState(-1);
 
   return (
     <article className="cities__place-card place-card" onMouseEnter={() => setOfferId(id)} onMouseLeave={() => setOfferId(-1)} >
@@ -15,7 +15,7 @@ function Card(props: {offer: Offer}): JSX.Element {
         </div> :
         ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${offerId}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={photos[0]} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -39,7 +39,7 @@ function Card(props: {offer: Offer}): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${offerId}`}>{title}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

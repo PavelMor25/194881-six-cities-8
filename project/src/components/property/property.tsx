@@ -7,18 +7,6 @@ import ReviewsItem from '../reviews-item/reviews-item';
 
 function Property(props: {offer: Offer}): JSX.Element {
   const {offer: {title, isPremium, type, rooms, maxAdults, price, goods, owner, description, reviews, rating, isFavorite, photos}} = props;
-  const goodsList = goods.map((item, index) => (
-    {
-      id: index,
-      name: item,
-    }
-  ));
-  const photosList = photos.map((item, index) =>(
-    {
-      id: index,
-      src: item,
-    }
-  ));
 
   return (
     <div className="page">
@@ -28,9 +16,9 @@ function Property(props: {offer: Offer}): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {photosList.map((item) => (
-                <div key={item.id} className="property__image-wrapper">
-                  <img className="property__image" src={item.src} alt="Photo studio"/>
+              {photos.map((item) => (
+                <div key={item} className="property__image-wrapper">
+                  <img className="property__image" src={item} alt="Photo studio"/>
                 </div>),
               )}
             </div>
@@ -76,9 +64,9 @@ function Property(props: {offer: Offer}): JSX.Element {
               <div className={`property__inside ${goods.length ? '' : 'visually-hidden'}`}>
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {goodsList.map((item) => (
-                    <li className="property__inside-item" key={item.id}>
-                      {item.name}
+                  {goods.map((item) => (
+                    <li className="property__inside-item" key={item}>
+                      {item}
                     </li>
                   ))}
                 </ul>

@@ -23,7 +23,7 @@ function App(props: {offers: Offer[]}): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <Favorites offers={offers} />}
+          render={() => <Favorites offers={offers.filter((item) => item.isFavorite)} />}
           authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
