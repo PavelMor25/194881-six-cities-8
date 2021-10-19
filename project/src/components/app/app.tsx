@@ -6,17 +6,16 @@ import Favorites from '../favorites/favorites';
 import Property from '../property/property';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import {Offer} from '../../types/offer';
 
-type CardsAmount = {
-  cardsAmount: number[]
-}
+function App(props: {offers: Offer[]}): JSX.Element {
+  const {offers} = props;
 
-function App({cardsAmount}: CardsAmount): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <Main cardsAmount={cardsAmount}/>
+          <Main offers={offers}/>
         </Route>
         <Route exact path={AppRoute.Login}>
           <Login />
@@ -24,13 +23,15 @@ function App({cardsAmount}: CardsAmount): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render={() => <Favorites />}
-          authorizationStatus={AuthorizationStatus.NoAuth}
+          render={() => <Favorites offers={offers.filter((item) => item.isFavorite)} />}
+          authorizationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Offer}>
-          <Property />
-        </Route>
+        <Route exact path={AppRoute.Offer}
+          render={({match}) => Number(match.params.id) <= offers.length
+            ? <Property offer={offers[Number(match.params.id)- 1]}/>
+            : <NotFoundScreen />}
+        />
         <Route>
           <NotFoundScreen />
         </Route>
