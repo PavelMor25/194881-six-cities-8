@@ -6,8 +6,8 @@ import { Offer } from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 
 
-function MainMap(props: {city: City, offers: Offer[], selectedOffer: number}): JSX.Element {
-  const {city, offers, selectedOffer} = props;
+function Map(props: {city: City, offers: Offer[], selectedOffer: number, renderPlace: string}): JSX.Element {
+  const {city, offers, selectedOffer, renderPlace} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -40,7 +40,7 @@ function MainMap(props: {city: City, offers: Offer[], selectedOffer: number}): J
     }
   }, [map, selectedOffer, offers]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={`${renderPlace}__map map`} ref={mapRef}></section>;
 }
 
-export default MainMap;
+export default Map;

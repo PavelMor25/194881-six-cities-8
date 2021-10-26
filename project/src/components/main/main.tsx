@@ -2,14 +2,12 @@ import {Offer} from '../../types/offer';
 import OfferList from '../offer-list/offer-list';
 import Header from '../headers/header';
 import {useState} from 'react';
-import MainMap from '../main-map/main-map';
+import Map from '../map/map';
 
 function Main(props: {offers: Offer[]}): JSX.Element {
   const {offers} = props;
   const [offerId, setOfferId] = useState(-1);
 
-  // eslint-disable-next-line no-console
-  console.log(offerId);
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -75,7 +73,7 @@ function Main(props: {offers: Offer[]}): JSX.Element {
               <OfferList offers={offers} setOfferId={setOfferId}/>
             </section>
             <div className="cities__right-section">
-              <MainMap city={offers[0].city} selectedOffer={offerId} offers={offers} />
+              <Map city={offers[0].city} selectedOffer={offerId} offers={offers} renderPlace={'cities'}/>
             </div>
           </div>
         </div>
