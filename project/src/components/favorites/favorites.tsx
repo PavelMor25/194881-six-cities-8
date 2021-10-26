@@ -14,7 +14,7 @@ function Favorites(props: {offers: Offer[]}): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {citesGroup.map((city) => <FavoritesItem key={city} offers={offers.filter((item) => city === item.city)} name={city} />)}
+              {citesGroup.map((city) => <FavoritesItem key={city} offers={offers.filter((item) => city === item.city.name)} name={city} />)}
             </ul>
           </section>
         </div>

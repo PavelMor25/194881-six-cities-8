@@ -5,7 +5,18 @@ export const offers: Offer[] = [
   {
     id: 1,
     type: 'apartment',
-    city: 'Amsterdam',
+    city: {
+      location: {
+        lat: 52.370216,
+        lng: 4.895168,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
+    },
     price: 120,
     title: 'So good and tasty',
     description: 'dsfsdfdsf dsfsdfdsf dsfdsf dsf.sdfew dsf.',
@@ -41,7 +52,18 @@ export const offers: Offer[] = [
   {
     id: 2,
     type: 'room',
-    city: 'Amsterdam',
+    city: {
+      location: {
+        lat: 52.370216,
+        lng: 4.895168,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.369553943508,
+      lng: 4.85309666406198,
+    },
     price: 150,
     title: 'asdasd ASd asdas sadsa',
     description: 'test testtest test test vtest test test',
@@ -77,7 +99,18 @@ export const offers: Offer[] = [
   {
     id: 3,
     type: 'apartment',
-    city: 'Amsterdam',
+    city: {
+      location: {
+        lat: 52.370216,
+        lng: 4.895168,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
+    },
     price: 120,
     title: 'So good',
     description: 'test test test. test test test test. testtest, test.',
@@ -106,7 +139,18 @@ export const offers: Offer[] = [
   {
     id: 4,
     type: 'apartment',
-    city: 'Amsterdam',
+    city: {
+      location: {
+        lat: 52.370216,
+        lng: 4.895168,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
+    location: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
+    },
     price: 120,
     title: 'So tasty',
     description: 'testtest testtest test test. testtesttest test test, test',
