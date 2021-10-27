@@ -1,10 +1,15 @@
 import { User } from './user';
 import { Review } from './review';
+import { City } from './city';
 
 export type Offer = {
   id: number,
   type: string,
-  city: string,
+  city: City,
+  location: {
+    lat: number,
+    lng: number,
+  },
   price: number,
   title: string,
   description: string,

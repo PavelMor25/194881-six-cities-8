@@ -1,20 +1,18 @@
-// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {Offer} from '../../types/offer';
 
 
-function Card(props: {offer: Offer, setOfferId: React.Dispatch<React.SetStateAction<number>>}): JSX.Element {
-  const {offer: {price, title, type, photos, isPremium, id, rating, isFavorite}, setOfferId} = props;
-  // const [offerId, setOfferId] = useState(-1);
+function Card(props: {offer: Offer, setOfferId: React.Dispatch<React.SetStateAction<number>>, isMainRender: boolean}): JSX.Element {
+  const {offer: {price, title, type, photos, isPremium, id, rating, isFavorite}, setOfferId, isMainRender} = props;
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => setOfferId(id)} onMouseLeave={() => setOfferId(-1)} >
+    <article className={`place-card ${isMainRender ? 'cities__place-card' : 'near-places__card'}`} onMouseEnter={() => setOfferId(id)} onMouseLeave={() => setOfferId(-1)} >
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div> :
         ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`place-card__image-wrapper ${isMainRender ? 'cities__image-wrapper' : 'near-places__image-wrapper'} `}>
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={photos[0]} width="260" height="200" alt="Place image"/>
         </Link>

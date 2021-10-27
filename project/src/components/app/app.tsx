@@ -29,7 +29,7 @@ function App(props: {offers: Offer[]}): JSX.Element {
         </PrivateRoute>
         <Route exact path={AppRoute.Offer}
           render={({match}) => Number(match.params.id) <= offers.length
-            ? <Property offer={offers[Number(match.params.id)- 1]}/>
+            ? <Property offer={offers[Number(match.params.id)- 1]} offers={offers.filter((item) => item.id !== Number(match.params.id))}/>
             : <NotFoundScreen />}
         />
         <Route>
