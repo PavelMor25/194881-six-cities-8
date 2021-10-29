@@ -4,8 +4,11 @@ import Header from '../headers/header';
 import {useState} from 'react';
 import Map from '../map/map';
 
-function Main(props: {offers: Offer[]}): JSX.Element {
-  const {offers} = props;
+type Props = {
+  offers: Offer[],
+}
+
+function Main({offers}: Props): JSX.Element {
   const [offerId, setOfferId] = useState(-1);
 
   return (

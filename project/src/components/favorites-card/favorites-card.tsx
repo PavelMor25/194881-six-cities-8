@@ -1,8 +1,12 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 
-function FavoritesCard(props: {offer: Offer}): JSX.Element {
-  const {offer: {photos, price, title, type, rating, isPremium, id}} = props;
+type Props = {
+  offer: Offer,
+}
+
+function FavoritesCard({offer}: Props): JSX.Element {
+  const {photos, price, title, type, rating, isPremium, id} = offer;
 
   return (
     <article className="favorites__card place-card">

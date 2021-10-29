@@ -1,9 +1,12 @@
 import { monthName } from '../../const';
 import { Review } from '../../types/review';
 
+type Props = {
+  review: Review
+}
 
-function ReviewsItem(props: {review: Review}): JSX.Element {
-  const {review: {author: {name, photo}, comment, date, rating}} = props;
+function ReviewsItem({review}: Props): JSX.Element {
+  const {author: {name, photo}, comment, date, rating} = review;
   const dateTime = {
     day: date.getDate(),
     month: date.getMonth(),

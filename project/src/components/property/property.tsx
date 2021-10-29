@@ -7,9 +7,14 @@ import {useState} from 'react';
 import Map from '../map/map';
 import OfferList from '../offer-list/offer-list';
 
+type Props = {
+  offer: Offer,
+  offers: Offer[],
+}
 
-function Property(props: {offer: Offer, offers: Offer[]}): JSX.Element {
-  const {offer: {title, isPremium, type, rooms, maxAdults, price, goods, owner, description, reviews, rating, isFavorite, photos, city}, offers} = props;
+
+function Property({offer, offers}: Props): JSX.Element {
+  const {title, isPremium, type, rooms, maxAdults, price, goods, owner, description, reviews, rating, isFavorite, photos, city} = offer;
   const [offerId, setOfferId] = useState(-1);
 
   return (
