@@ -11,6 +11,28 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum CityType {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export enum ActionType {
+  SetCity = 'main/setCity',
+  SetOffers = 'main/setOffers',
+  SetSorting = 'main/setSorting'
+}
+
+export enum SortingType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: high to low',
+  Rating = 'Top rated first',
+}
+
 export const monthName: string[] = [
   'January',
   'February',
