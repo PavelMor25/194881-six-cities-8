@@ -1,7 +1,12 @@
 import { User } from '../../types/user';
 
-function PropertyHost(props: {user: User, description: string}) {
-  const {user: {name, isPro, photo}, description} = props;
+type Props = {
+  user: User,
+  description: string,
+}
+
+function PropertyHost({user, description}: Props) {
+  const {name, isPro, photo} = user;
 
   return (
     <div className="property__host">

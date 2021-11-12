@@ -5,9 +5,14 @@ import {Icon, Marker} from 'leaflet';
 import { Offer } from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 
+type Props = {
+  city: City,
+  offers: Offer[],
+  selectedOffer: number,
+  renderPlace: string,
+}
 
-function Map(props: {city: City, offers: Offer[], selectedOffer: number, renderPlace: string}): JSX.Element {
-  const {city, offers, selectedOffer, renderPlace} = props;
+function Map({city, offers, selectedOffer, renderPlace}: Props): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

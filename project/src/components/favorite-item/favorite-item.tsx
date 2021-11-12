@@ -1,8 +1,12 @@
 import { Offer } from '../../types/offer';
 import FavoritesCard from '../favorites-card/favorites-card';
 
-function FavoritesItem(props: {name: string, offers: Offer[]}): JSX.Element {
-  const {name, offers} = props;
+type Props = {
+  name: string,
+  offers: Offer[],
+}
+
+function FavoritesItem({name, offers}: Props): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

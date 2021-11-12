@@ -8,14 +8,17 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import {Offer} from '../../types/offer';
 
-function App(props: {offers: Offer[]}): JSX.Element {
-  const {offers} = props;
+type Props = {
+  offers: Offer[],
+}
+
+function App({offers}: Props): JSX.Element {
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <Main offers={offers}/>
+          <Main />
         </Route>
         <Route exact path={AppRoute.Login}>
           <Login />

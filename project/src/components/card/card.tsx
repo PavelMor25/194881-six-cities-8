@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
 import {Offer} from '../../types/offer';
 
+type Props = {
+  offer: Offer,
+  setOfferId:  React.Dispatch<React.SetStateAction<number>>,
+  isMainRender: boolean,
+}
 
-function Card(props: {offer: Offer, setOfferId: React.Dispatch<React.SetStateAction<number>>, isMainRender: boolean}): JSX.Element {
-  const {offer: {price, title, type, photos, isPremium, id, rating, isFavorite}, setOfferId, isMainRender} = props;
+function Card({offer, setOfferId, isMainRender}: Props): JSX.Element {
+  const {price, title, type, photos, isPremium, id, rating, isFavorite} = offer;
 
   return (
     <article className={`place-card ${isMainRender ? 'cities__place-card' : 'near-places__card'}`} onMouseEnter={() => setOfferId(id)} onMouseLeave={() => setOfferId(-1)} >

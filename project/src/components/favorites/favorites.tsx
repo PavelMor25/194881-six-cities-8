@@ -3,9 +3,13 @@ import FavoritesItem from '../favorite-item/favorite-item';
 import { Offer } from '../../types/offer';
 import { uniqCity } from '../utils/utils';
 
-function Favorites(props: {offers: Offer[]}): JSX.Element {
-  const {offers} = props;
+type Props = {
+  offers: Offer[],
+}
+
+function Favorites({offers}: Props): JSX.Element {
   const citesGroup = uniqCity(offers);
+
   return (
     <div className="page">
       <Header />
