@@ -42,8 +42,16 @@ function Map({city, offers, selectedOffer, renderPlace}: Props): JSX.Element {
         })
           .addTo(map);
       });
+
+      map.setView(
+        [
+          city.location.lat,
+          city.location.lng,
+        ],
+        city.location.zoom,
+      );
     }
-  }, [map, selectedOffer, offers]);
+  }, [map, city, selectedOffer, offers]);
 
   return <section className={`${renderPlace}__map map`} ref={mapRef}></section>;
 }

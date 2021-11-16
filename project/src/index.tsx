@@ -1,26 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {createStore} from '@reduxjs/toolkit';
+import {applyMiddleware, createStore} from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
+import {createAPI} from './services/api';
 import {reducer} from './store/reducer';
-import {setOffers} from './store/actions';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import { offers } from './mocks/offer-mock';
+import {AuthorizationStatus} from './const';
+import {requireAuthorization} from './store/actions';
+import {ThunkAppDispatch} from './types/actions';
+import {checkAuthAction} from './store/api-actions';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const api = createAPI(() =>
+  store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
+);
 
 const store = createStore(
   reducer,
-  composeWithDevTools(),
+  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
 );
 
-store.dispatch(setOffers(offers));
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        offers = {offers}
-      />
+      <App />
     </Provider>
+    <ToastContainer
+      theme="colored"
+      position="top-center"
+    />
   </React.StrictMode>,
   document.getElementById('root'));

@@ -1,46 +1,22 @@
 import React from 'react';
-import {Dispatch} from '@reduxjs/toolkit';
-import {connect, ConnectedProps} from 'react-redux';
-import {setCity} from '../../store/actions';
-import {Actions} from '../../types/actions';
+import {useSelector} from 'react-redux';
 import {State} from '../../types/state';
 import {CityType} from '../../const';
+import MainScreenTabsItem from '../main-screen-tabs-item/main-screen-tabs-item';
 
-const mapStateToProps = ({city}: State) => ({city});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onLinkClick(city: CityType) {
-    dispatch(setCity(city));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {city: currentCity, onLinkClick} = props;
-
-  const handleLinkClick = (evt: React.MouseEvent<HTMLAnchorElement>, city: CityType) => {
-    evt.preventDefault();
-    onLinkClick(city);
-  };
+function MainScreenTabs(): JSX.Element {
+  const {city: currentCity} = useSelector((state: State) => state);
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {Object.values(CityType).map((city) => (
-            <li
+            <MainScreenTabsItem
               key={city}
-              className="locations__item"
-            >
-              <a
-                onClick={(evt) => handleLinkClick(evt, city)}
-                className={`${city === currentCity ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
-                href="/"
-              >
-                <span>{city}</span>
-              </a>
-            </li>
+              city={city}
+              className={`${city === currentCity ? 'tabs__item--active' : ''} locations__item-link tabs__item`}
+            />
           ))}
         </ul>
       </section>
@@ -48,5 +24,5 @@ function MainScreenTabs(props: ConnectedProps<typeof connector>): JSX.Element {
   );
 }
 
-export {MainScreenTabs};
-export default connector(MainScreenTabs);
+
+export default MainScreenTabs;

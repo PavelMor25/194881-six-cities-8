@@ -1,26 +1,32 @@
 import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
 import MainScreenTabs from '../main-screen-tabs/main-screen-tabs';
 import MainScreenSort from '../main-screen-sort/main-screen-sort';
 import OfferList from '../offer-list/offer-list';
 import Header from '../headers/header';
-import {useState} from 'react';
 import Map from '../map/map';
 import { getOffersByCity, getSortOffers } from '../utils/utils';
+import {FetchStatus} from '../../const';
+import {getOffersAction} from '../../store/api-actions';
+import Loader from '../loader/loader';
 
-const mapStateToProps = ({city, offers, sort}: State) => ({
-  city,
-  offers,
-  sort,
-});
-
-const connector = connect(mapStateToProps);
-
-function Main(props: ConnectedProps<typeof connector>): JSX.Element {
-  const {city, offers, sort} = props;
-  const currentOffers = getOffersByCity(offers, city);
+function Main(): JSX.Element {
+  const {city, offers, sort} = useSelector((state: State) => state);
+  const currentOffers = getOffersByCity(offers.data, city);
   const currentSort = getSortOffers(currentOffers, sort);
   const [offerId, setOfferId] = useState(-1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (offers.fetchStatus === FetchStatus.Unknown) {
+      dispatch(getOffersAction());
+    }
+  }, [dispatch, offers.fetchStatus]);
+
+  if (offers.fetchStatus === FetchStatus.Loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -42,7 +48,7 @@ function Main(props: ConnectedProps<typeof connector>): JSX.Element {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
+                  <p className="cities__status-description">We could not find any property available at the moment in {city} {currentSort.length}</p>
                 </div>
               </section>)}
             <div className="cities__right-section">
@@ -55,5 +61,4 @@ function Main(props: ConnectedProps<typeof connector>): JSX.Element {
   );
 }
 
-export {Main};
-export default connector(Main);
+export default Main;

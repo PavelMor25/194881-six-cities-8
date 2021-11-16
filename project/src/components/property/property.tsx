@@ -1,21 +1,60 @@
-import { Offer } from '../../types/offer';
+import {Redirect, useParams} from 'react-router-dom';
 import Header from '../headers/header';
 import PropertyHost from '../property-host/property-host';
 import ReviewForm from '../review-form/review-form';
 import ReviewsItem from '../reviews-item/reviews-item';
 import {useState} from 'react';
 import Map from '../map/map';
+import {getStatefulItems} from '../utils/utils';
 import OfferList from '../offer-list/offer-list';
+import {AppRoute, FetchStatus, AuthorizationStatus} from '../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {State} from '../../types/state';
+import Loader from '../loader/loader';
+import {Offer} from '../../types/offer';
+import {useEffect} from 'react';
+import {getNearbyOffersAction, getOfferAction, getReviewsAction} from '../../store/api-actions';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import {setOfferFetchStatus} from '../../store/actions';
 
-type Props = {
-  offer: Offer,
-  offers: Offer[],
-}
-
-
-function Property({offer, offers}: Props): JSX.Element {
-  const {title, isPremium, type, rooms, maxAdults, price, goods, owner, description, reviews, rating, isFavorite, photos, city} = offer;
+function Property(): JSX.Element {
+  const authStatus = useSelector((state: State) => state.auth.status);
+  const {data: offer, fetchStatus: offerFetchStatus} = useSelector((state: State) => state.offer);
+  const {data: reviews} = useSelector((state: State) => state.reviews);
+  const {data: nearbyOffers, fetchStatus: nearbyOffersFetchStatus} = useSelector((state: State) => state.nearbyOffers);
+  const {id} = useParams() as {id: string};
   const [offerId, setOfferId] = useState(-1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOfferAction(id));
+    dispatch(getNearbyOffersAction(id));
+    dispatch(getReviewsAction(id));
+
+    return () => {
+      setOfferFetchStatus(FetchStatus.Unknown);
+    };
+  }, [dispatch, id]);
+
+  if (offerFetchStatus === FetchStatus.Fail) {
+    return <Redirect to={AppRoute.Root} />;
+  }
+
+  if (offerFetchStatus === FetchStatus.NotFound) {
+    return <NotFoundScreen />;
+  }
+
+  if (offer?.id !== +id
+    || offerFetchStatus === FetchStatus.Loading
+    || nearbyOffersFetchStatus === FetchStatus.Loading) {
+    return <Loader />;
+  }
+
+  const {title, isPremium, type, rooms, maxAdults, price, goods, owner, description, rating, isFavorite, photos, city} = offer as Offer;
+
+  const statefulImages = getStatefulItems(photos as string[], 'src');
+  const statefulGoods = getStatefulItems(goods as string[], 'name');
+  const statefulDescriptions = getStatefulItems((description as string).split('\n'), 'text');
 
   return (
     <div className="page">
@@ -25,9 +64,9 @@ function Property({offer, offers}: Props): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {photos.map((item) => (
-                <div key={item} className="property__image-wrapper">
-                  <img className="property__image" src={item} alt="Photo studio"/>
+              {statefulImages.slice(0, 6).map((item) => (
+                <div key={item.id} className="property__image-wrapper">
+                  <img className="property__image" src={item.src} alt="Photo studio"/>
                 </div>),
               )}
             </div>
@@ -70,32 +109,32 @@ function Property({offer, offers}: Props): JSX.Element {
                 <b className="property__price-value">&euro;{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
-              <div className={`property__inside ${goods.length ? '' : 'visually-hidden'}`}>
+              <div className={`property__inside ${statefulGoods.length ? '' : 'visually-hidden'}`}>
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {goods.map((item) => (
-                    <li className="property__inside-item" key={item}>
+                  {statefulGoods.map((item) => (
+                    <li className="property__inside-item" key={item.id}>
                       {item}
                     </li>
                   ))}
                 </ul>
               </div>
-              <PropertyHost user={owner} description={description} />
+              <PropertyHost user={owner} description={statefulDescriptions} />
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*reviews.length*/}</span></h2>
                 <ul className="reviews__list">
                   {reviews.map((item) => <ReviewsItem key={item.id} review={item} />)}
                 </ul>
-                <ReviewForm />
+                {authStatus === AuthorizationStatus.Auth &&<ReviewForm />}
               </section>
             </div>
           </div>
-          <Map renderPlace={'property'} offers={offers} city={city} selectedOffer={offerId} />
+          <Map renderPlace={'property'} offers={nearbyOffers} city={city} selectedOffer={offerId} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferList offers={offers} setOfferId={setOfferId} isMainRender={false} />
+            <OfferList offers={nearbyOffers} setOfferId={setOfferId} isMainRender={false} />
           </section>
         </div>
       </main>

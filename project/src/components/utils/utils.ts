@@ -23,3 +23,7 @@ export const getSortOffers = (offers: Offer[], sortingType: SortingType): Offer[
     }
   }
 };
+
+export const getStatefulItems = (items: string[], itemValueName: string): {id: string; [itemValueName: string]: string}[] => (
+  items.map((item, index) => ({id: index.toString(), [itemValueName]: item}))
+);

@@ -2,7 +2,10 @@ import { User } from '../../types/user';
 
 type Props = {
   user: User,
-  description: string,
+  description: {
+    [itemValueName: string]: string;
+    id: string;
+  }[],
 }
 
 function PropertyHost({user, description}: Props) {
@@ -23,9 +26,14 @@ function PropertyHost({user, description}: Props) {
         </span>
       </div>
       <div className="property__description">
-        <p className="property__text">
-          {description}
-        </p>
+        {description.map((item) => (
+          <p
+            key={item.id}
+            className="property__text"
+          >
+            {item.text}
+          </p>
+        ))}
       </div>
     </div>
   );
